@@ -1,0 +1,13 @@
+.icon(@path, @width: 11px, @height: 17px){
+  display: inline-block;
+  width: @width;
+  height:@height;
+  overflow: hidden;
+  background-image: url(@path);
+}
+
+.no-wrap(){
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
