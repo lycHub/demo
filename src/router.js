@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Refund from './views/finance/refund/refund.route'
+import RefundDetail from './views/finance/refund/refundDetail/refundDetail.route'
+import phoneMap from './views/phone/phone-map/phoneMap.route'
 
 Vue.use(Router)
 
@@ -8,18 +10,12 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      { path: '/', redirect: { name: 'refund' }},
+      Refund, RefundDetail, phoneMap
+     /* {
+          path: '*',
+          name: '404',
+          component: NotFound,
+      }*/
   ]
 })

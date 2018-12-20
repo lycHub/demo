@@ -5,13 +5,15 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+import './configs/axios'
+
 // 全局组件
 import './components/common'
 
 
 // 全局样式
-import 'iview/dist/styles/iview.css';
-import './assets/styles/index.less';
+import 'iview/dist/styles/iview.css'
+import './assets/styles/index.less'
 
 
 new Vue({

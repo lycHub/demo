@@ -1,13 +1,23 @@
 const path = require('path');
 
 module.exports = {
-   /* devServer: {
+    devServer: {
+        publicPath: '/',
+        disableHostCheck: true,
+        host: '192.168.212.54',
+        port: 4200,
         proxy: {
-            "/index.php*" : {
-                target: "http://test.vip.meifanco.com/"
+            '/finance': {
+                target: 'https://mgt.oilchem.net',
+                changeOrigin: true
+            },
+            '/callcenter': {
+                target: 'https://mgt.oilchem.net',
+                changeOrigin: true
             }
-        }
-    },*/
+        },
+        quiet: true
+    },
     lintOnSave: false,
     css: {
         loaderOptions: {
