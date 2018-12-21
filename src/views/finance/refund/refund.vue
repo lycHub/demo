@@ -289,20 +289,19 @@
                   }
               ],
               formValue: {
-//                  因为vuex里有了初始化数据，所以这里可有可无
-//                  payType: '',                    // 支付方式
-//                  timeStatus: 0,                  // 时间类型
-//                  transferStartTime: '',         // 到账开始时间
-//                  transferEndTime: '',           // 到账结束时间
-//                  accountNo: '',                 // 账号
-//                  totalAmoutMin: '',             // 到账金额最小值
-//                  totalAmoutMax: '',             // 到账金额最大值
-//                  transferNo: '',             // 交易流水号
-//                  transferFrom: '',             // 来源
-//                  auditStatus: 0,             // 状态
-//                  pageNum: 1,
-//                  pageSize: 10,
-//                  sign: ''
+                  payType: '',                    // 支付方式
+                  timeStatus: 0,                  // 时间类型
+                  transferStartTime: '',         // 到账开始时间
+                  transferEndTime: '',           // 到账结束时间
+                  accountNo: '',                 // 账号
+                  totalAmoutMin: '',             // 到账金额最小值
+                  totalAmoutMax: '',             // 到账金额最大值
+                  transferNo: '',             // 交易流水号
+                  transferFrom: '',             // 来源
+                  auditStatus: 0,             // 状态
+                  pageNum: 1,
+                  pageSize: 10,
+                  sign: ''
               },
 
               // 时间类型
@@ -336,16 +335,11 @@
       },
       created() {
           this.loading = true;
-
-          // 从vuex的state中读取caches.refund并付给this.formValue, this.formValue = this.$store.state.caches.refund
-          this.formValue = this.refundCache;
-//          console.log('create', this.formValue);
           this.dateArr = this.initDateArr;
           this._initDatas();
       },
 
       computed: {
-          ...mapGetters(['refundCache']),
           initDateArr() {
               if(!this.formValue.transferStartTime || !this.formValue.transferEndTime) {
                   return ['', ''];
@@ -413,17 +407,7 @@
                       this.loading = false;
                   });
               }
-          },
-
-          ...mapMutations({
-              setRefundCache: 'SET_REFUND_CACHE'
-          })
-      },
-
-      beforeRouteLeave (to, from, next) {
-          // 离开前更新state里的数据，相当于：this.$store.commit('SET_REFUND_CACHE', this.formValue);
-          this.setRefundCache(this.formValue);
-          next();
+          }
       }
   };
 </script>
