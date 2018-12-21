@@ -117,7 +117,6 @@
     methods: {
       onOk(){
         this.$refs['phoneMapModal_form'].validate(valid => {
-//          console.log('oks', this.formValue);
           if (!this.formValue['employeeId']) {
             this.$Modal.warning({
               title: '请选择一位员工'
@@ -156,7 +155,6 @@
           searchWord = searchWord.slice(0, index);
         }
 
-//        console.log('searchWord', searchWord);
         if (searchWord) {
           this.loading = true;
           this.getEmployees(searchWord);
@@ -166,9 +164,7 @@
       },
 
       onSelectChange(employee){
-//        console.log('employeeChange', employee);
         if (employee) {
-//          console.log(2, employee);
           this.formValue.employeeName = employee.label;
         }
       },

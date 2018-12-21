@@ -105,8 +105,8 @@
 <script>
   import axios from 'axios';
   import RefundServe from 'services/finance/refund.service';
-  import {startOfMonth, endOfMonth, endOfDay, getTime} from 'date-fns';
-
+  import { endOfDay, getTime} from 'date-fns';
+  import { mapGetters, mapMutations } from 'vuex';
   export default {
       name: "refund",
       data() {
@@ -334,9 +334,24 @@
           }
       },
       created() {
-          this.dateArr = [startOfMonth(Date.now()), endOfMonth(Date.now())];
           this.loading = true;
+
+          // 从vuex的state中读取caches.refund并付给this.formValue, this.formValue = this.$store.state.caches.refund
+          this.formValue = this.refundCache;
+          console.log('create', this.formValue);
+          this.dateArr = this.initDateArr;
           this._initDatas();
+      },
+
+      computed: {
+          ...mapGetters(['refundCache']),
+          initDateArr() {
+              if(!this.formValue.transferStartTime || !this.formValue.transferEndTime) {
+                  return ['', ''];
+              }else {
+                  return [new Date(this.formValue.transferStartTime), new Date(this.formValue.transferEndTime)];
+              }
+          }
       },
 
       methods: {
@@ -397,7 +412,17 @@
                       this.loading = false;
                   });
               }
-          }
+          },
+
+          ...mapMutations({
+              setRefundCache: 'SET_REFUND_CACHE'
+          })
+      },
+
+      beforeRouteLeave (to, from, next) {
+          // 离开前更新state里的数据，相当于：this.$store.commit('SET_REFUND_CACHE', this.formValue);
+          this.setRefundCache(this.formValue);
+          next();
       }
   };
 </script>

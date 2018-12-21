@@ -1,6 +1,8 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
+const baseUrl = 'https://mgt.oilchem.net';
+
 axios.interceptors.response.use(function (response) {
     changePage(response.data.status);
     return response;
@@ -11,7 +13,6 @@ axios.interceptors.response.use(function (response) {
 });
 
 
-const baseUrl = 'https://mgt.oilchem.net';
 function changePage(status) {
     switch (status) {
         case 0:
