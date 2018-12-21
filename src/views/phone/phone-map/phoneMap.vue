@@ -176,7 +176,7 @@
             onSearch(){
                 this.formValue.pageNum = 1;
                 this.$Spin.show();
-                this.getListPage();
+                this._getListPage();
             },
             onReset(){
                 this.$refs['phoneMap_form'].resetFields();
@@ -185,12 +185,12 @@
                 this.formValue.pageNum = 1;
                 this.formValue.pageSize = pageSize;
                 this.$Spin.show();
-                this.getListPage();
+                this._getListPage();
             },
             onPageChange(page){
                 this.formValue.pageNum = page;
                 this.$Spin.show();
-                this.getListPage();
+                this._getListPage();
             },
 
             // 打开弹窗
