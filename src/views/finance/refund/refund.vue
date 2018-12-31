@@ -105,8 +105,7 @@
 <script>
   import axios from 'axios';
   import RefundServe from 'services/finance/refund.service';
-  import { endOfDay, getTime} from 'date-fns';
-  import { mapGetters, mapMutations } from 'vuex';
+  import { endOfDay, getTime, startOfMonth, endOfMonth } from 'date-fns';
   export default {
       name: "refund",
       data() {
@@ -335,18 +334,8 @@
       },
       created() {
           this.loading = true;
-          this.dateArr = this.initDateArr;
+          this.dateArr = [startOfMonth(Date.now()), endOfMonth(Date.now())];
           this._initDatas();
-      },
-
-      computed: {
-          initDateArr() {
-              if(!this.formValue.transferStartTime || !this.formValue.transferEndTime) {
-                  return ['', ''];
-              }else {
-                  return [new Date(this.formValue.transferStartTime), new Date(this.formValue.transferEndTime)];
-              }
-          }
       },
 
       methods: {

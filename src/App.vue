@@ -2,11 +2,20 @@
   <div id="app">
       <Layout class="layout">
         <Header class="header">
-          header
+          当前登陆：
+          <Dropdown trigger="click" @on-click="showModal = true;">
+            <span>
+              {{userInfo.name}}
+              <Icon type="ios-arrow-down"></Icon>
+            </span>
+            <DropdownMenu slot="list">
+              <DropdownItem>修改信息</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </Header>
         <Layout>
           <Sider hide-trigger class="sider">
-            <Menu :active-name="currentPageName" theme="dark" :open-names="['demo']" style="width: 200px;">
+            <Menu :active-name="$route.name" theme="dark" :open-names="['demo']" style="width: 200px;">
               <Submenu v-for="sub in menus" :key="sub.name" :name="sub.name">
                 <template slot="title"><Icon :type="sub.icon"></Icon> {{sub.title}}</template>
                 <MenuItem v-for="child in sub.children" :key="child.name" :name="child.name" :to="{ name  : child.name }">{{child.title}}</MenuItem>
@@ -18,9 +27,31 @@
           </Content>
         </Layout>
       </Layout>
+
+
+    <Modal v-model="showModal" title="修改信息" @on-ok="edit">
+      <Form :model="userInfo" :label-width="80">
+        <FormItem label="姓名">
+          <i-Input v-model="userInfo.name" ></i-Input>
+        </FormItem>
+        <FormItem label="年龄">
+          <i-Input v-model="userInfo.age" ></i-Input>
+        </FormItem>
+        <FormItem label="电话">
+          <i-Input v-model="userInfo.tel" ></i-Input>
+        </FormItem>
+        <FormItem label="email">
+          <i-Input v-model="userInfo.email" ></i-Input>
+        </FormItem>
+        <FormItem>
+          <NcSlider @ncValid="isValid = true"></NcSlider>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 <script>
+    import { mapGetters, mapMutations } from 'vuex';
   export default {
       name: 'App',
       data() {
@@ -38,15 +69,34 @@
                       {
                           title: "话机映射",
                           name: "phoneMap"
+                      },
+                      {
+                          title: "other",
+                          name: "other"
                       }
                   ]
-              }]
+              }],
+              userInfo: {},
+              isValid: false,
+              showModal: false
           }
       },
       created() {
-          setTimeout(() => {
-              this.currentPageName = this.$route.name;
-          }, 500);
+          this.userInfo = this.user;
+      },
+
+      computed: mapGetters(['user']),  // 语法糖，相当于this.user = this.$store.state.user
+
+      methods: {
+          edit() {
+              if (this.isValid) {
+                  // state
+                  this.editInfo(this.userInfo);
+              }
+          },
+          ...mapMutations({
+              editInfo: 'SET_USERINFO'
+          })
       }
   }
 </script>

@@ -1,7 +1,14 @@
 import Vue from 'vue';
-import {Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
+import {Collapse, Panel, Dropdown, DropdownMenu, DropdownItem, CellGroup, Cell, Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
 
 const components = {
+    Collapse,
+    Panel,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Cell,
+    CellGroup,
     Button,
     Layout,
     Header,

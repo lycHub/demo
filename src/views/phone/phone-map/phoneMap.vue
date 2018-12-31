@@ -196,7 +196,7 @@
             // 打开弹窗
             openModal (evt, type = 'save', params) {
                 if (params) {
-                    this.phoneInfo = params;
+                    this.phoneInfo = { ...params };
                 }
 
                 this.modalType = type;

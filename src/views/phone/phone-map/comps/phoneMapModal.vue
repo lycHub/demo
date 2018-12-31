@@ -104,7 +104,7 @@
         }
       },
 
-      'formValue': {
+     /* 'formValue': {
         handler(newVal) {
           if (this.modalType === 'save') return;
           if (!newVal.employeeId) {
@@ -112,7 +112,14 @@
           }
         },
         deep: true
-      }
+      }*/
+
+    'formValue.employeeId'(newVal) {
+        if (this.modalType === 'save') return;
+        if (!newVal) {
+            this.formValue.employeeId = this.phoneInfo['employeeId'];
+        }
+    }
     },
     methods: {
       onOk(){
