@@ -43,7 +43,7 @@
       },
       modalType: {
         type: String,
-        detault: 'save'
+        default: 'save'
       },
       phoneInfo: Object
     },
@@ -119,7 +119,7 @@
         if (!newVal) {
             this.formValue.employeeId = this.phoneInfo['employeeId'];
         }
-    }
+      }
     },
     methods: {
       onOk(){

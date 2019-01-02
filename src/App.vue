@@ -43,9 +43,9 @@
         <FormItem label="email">
           <i-Input v-model="userInfo.email" ></i-Input>
         </FormItem>
-        <FormItem>
+      <!--  <FormItem>
           <NcSlider @ncValid="isValid = true"></NcSlider>
-        </FormItem>
+        </FormItem>-->
       </Form>
     </Modal>
   </div>
@@ -77,7 +77,7 @@
                   ]
               }],
               userInfo: {},
-              isValid: false,
+//              isValid: false,
               showModal: false
           }
       },
@@ -89,10 +89,7 @@
 
       methods: {
           edit() {
-              if (this.isValid) {
-                  // state
-                  this.editInfo(this.userInfo);
-              }
+              this.editInfo(this.userInfo);
           },
           ...mapMutations({
               editInfo: 'SET_USERINFO'

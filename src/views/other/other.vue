@@ -17,7 +17,7 @@
         <Cell title="email" :extra="userInfo.email" />
       </CellGroup>
     </Card>
-
+<!--
     <Card :bordered="false" dis-hover class="f_card">
       <span slot="title">Collapse</span>
       <Collapse v-model="value1">
@@ -26,7 +26,7 @@
           <p slot="content">{{item.content}}</p>
         </Panel>
       </Collapse>
-    </Card>
+    </Card>-->
   </div>
 </template>
 
@@ -36,7 +36,7 @@
         name: "Other",
         data() {
             return {
-                value1: '斯蒂夫·盖瑞·沃兹尼亚克',
+                /*value1: '斯蒂夫·盖瑞·沃兹尼亚克',
                 collapseData: [{
                    title: '史蒂夫·乔布斯',
                    content: '史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。'
@@ -46,7 +46,7 @@
                 }, {
                     title: '乔纳森·伊夫',
                     content: '乔纳森·伊夫，1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。'
-                }],
+                }],*/
 
                 userInfo: {
                  /*   name: '李四',
@@ -60,12 +60,6 @@
         created() {
 //          console.log('user', this.$store.state.user);
             this.userInfo = this.user;
-        },
-
-        watch: {
-            userInfo(newVal) {
-                console.log('newVal', newVal);
-            }
         },
 
 

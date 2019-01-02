@@ -334,8 +334,14 @@
       },
       created() {
           this.loading = true;
-          this.dateArr = [startOfMonth(Date.now()), endOfMonth(Date.now())];
+          this.dateArr = this.initMonth;
           this._initDatas();
+      },
+
+      computed: {
+        initMonth() {
+            return [startOfMonth(Date.now()), endOfMonth(Date.now())];
+        }
       },
 
       methods: {
@@ -359,9 +365,10 @@
           onReset() {
               this.$refs['refund_form'].resetFields();
               this.formValue.totalAmoutMin = this.formValue.totalAmoutMax = '';
-              this.dateArr = [];
+              this.dateArr = this.initMonth;
               this.formValue.transferStartTime = this.formValue.transferEndTime = '';
           },
+
           _initDatas() {
               axios.all([
                   this._getPayTypes(),
