@@ -17,25 +17,56 @@
         <Cell title="email" :extra="userInfo.email" />
       </CellGroup>
     </Card>
-<!--
     <Card :bordered="false" dis-hover class="f_card">
-      <span slot="title">Collapse</span>
-      <Collapse v-model="value1">
-        <Panel :name="item.title" v-for="item in collapseData" :key="item.title">
-          {{item.title}}
-          <p slot="content">{{item.content}}</p>
-        </Panel>
-      </Collapse>
-    </Card>-->
+      <span slot="title" @click="changeList">Transfer</span>
+      <!--:render-format="render1"-->
+      <Transfer
+              :data="data1"
+              :target-keys="targetKeys1"
+              @on-change="handleChange1">
+      </Transfer>
+    </Card>
   </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
+
+    const sourceData1 = [{
+        key: 'abc1',
+        label: 'abc111'
+    }, {
+        key: 'abc2',
+        label: 'abc222'
+    }, {
+        key: 'abc3',
+        label: 'abc333'
+    }, {
+        key: 'abc4',
+        label: 'abc444'
+    }];
+
+    const sourceData2 = [{
+        key: 'def1',
+        label: 'def111'
+    }, {
+        key: 'def2',
+        label: 'def222'
+    }, {
+        key: 'def3',
+        label: 'def333'
+    }, {
+        key: 'def4',
+        label: 'def444'
+    }];
+
+
     export default {
         name: "Other",
         data() {
             return {
+                data1: sourceData1,
+                targetKeys1: [],
                 /*value1: '斯蒂夫·盖瑞·沃兹尼亚克',
                 collapseData: [{
                    title: '史蒂夫·乔布斯',
@@ -57,9 +88,48 @@
             }
         },
 
+        methods: {
+            changeList() {
+                this.data1 = sourceData2;
+            },
+           /* getMockData (key = 'abc') {
+                let mockData = [];
+                for (let i = 1; i <= 20; i++) {
+                    mockData.push({
+                        key: key + i,
+                        label: 'Content' + key + i
+                    });
+                }
+                this.data1 = mockData;
+                this.targetKeys1 = [...this.targetKeys1];
+            },*/
+          /*  getTargetKeys () {
+                return this.getMockData()
+                    .filter(() => Math.random() * 2 > 1)
+                    .map(item => item.key);
+            },*/
+            /*render1 (item) {
+                return item.label;
+            },*/
+            handleChange1 (newTargetKeys, direction, moveKeys) {
+                console.log('newTargetKeys', newTargetKeys);
+                console.log('direction', direction);
+                console.log('moveKeys', moveKeys);
+                this.targetKeys1 = newTargetKeys;
+            }
+        },
+
+        watch: {
+            targetKeys1(newVal) {
+                console.log('newVal', newVal);
+            }
+        },
+
         created() {
 //          console.log('user', this.$store.state.user);
             this.userInfo = this.user;
+
+//            this.getMockData();
         },
 
 

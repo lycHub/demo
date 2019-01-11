@@ -264,6 +264,10 @@
                     this.list_page = res.list;
                     this.total = res.total;
                     this.$Spin.hide();
+
+                    this.$Notice.info({
+                        title: 'dasdasdsa'
+                    });
                 });
             }
         }

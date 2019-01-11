@@ -33,7 +33,8 @@
 </template>
 
 <script>
-    import PhoneMapServe from 'services/phone/phoneMap.service';
+  import PhoneMapServe from 'services/phone/phoneMap.service';
+  import {debounce} from 'throttle-debounce';
   export default {
     name: "phoneMapModal",
     props: {
@@ -79,6 +80,12 @@
           ]
         }
       }
+    },
+
+    created() {
+      this.remoteMethod = debounce(300, false, keyword => {
+          this._remoteMethod(keyword);
+      });
     },
     computed: {
       modalTitle() {
@@ -150,7 +157,7 @@
       },
 
 
-      remoteMethod(keyword) {
+      _remoteMethod(keyword) {
         let searchWord = null;
         if (Number(keyword) === this.formValue.employeeId) {
           searchWord = this.formValue.employeeName;

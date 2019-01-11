@@ -1,7 +1,10 @@
 import Vue from 'vue';
-import {Collapse, Panel, Dropdown, DropdownMenu, DropdownItem, CellGroup, Cell, Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
+import {Transfer, CheckboxGroup, Checkbox, Collapse, Panel, Dropdown, DropdownMenu, DropdownItem, CellGroup, Cell, Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
 
 const components = {
+    Transfer,
+    CheckboxGroup,
+    Checkbox,
     Collapse,
     Panel,
     Dropdown,
@@ -46,3 +49,11 @@ for (const attr in components) {
         Vue.component(attr, components[attr]);
     }
 }
+
+
+
+// 全局配置
+Notice.config({
+    top: 50,
+    duration: 3
+});

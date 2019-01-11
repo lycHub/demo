@@ -36,10 +36,6 @@
           }
         },
 
-        // mounted(){
-        //     console.log(this.$el.getBoundingClientRect().left, this.$el.offsetLeft);
-        // },
-
         methods: {
             onMouseDown(evt){
                 if (this.$isServer || this.isValid) return;

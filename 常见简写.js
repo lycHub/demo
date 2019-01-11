@@ -68,6 +68,15 @@ if (res.response) {
 arr = res.response || [];
 
 
+let label = '';
+if (data) {
+	label = data.label;
+}
+
+简写：
+label = data && data.label;
+
+
 
 
 // 变量num可以在1~100之间随意增加或减少
