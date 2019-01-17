@@ -19,45 +19,30 @@
     </Card>
     <Card :bordered="false" dis-hover class="f_card">
       <span slot="title">eidtor</span>
-      <ButtonGroup>
+      <!--<ButtonGroup>
         <Button @click="getContent">getContent</Button>
         <Button @click="getText">getText</Button>
         <Button @click="insertEmbed">insertEmbed</Button>
         <Button @click="getHTml">getHTml</Button>
         <Button @click="setContents">setContents</Button>
         <Button @click="setHtml">setHtml</Button>
-      </ButtonGroup>
-      <div class="toolbar" ref="toolbar"></div>
-    <!--  <div class="toolbar" ref="toolbar">
-        <div id="toolbar">
-          &lt;!&ndash; Add font size dropdown &ndash;&gt;
-          <select class="ql-size">
-            <option value="small"></option>
-            &lt;!&ndash; Note a missing, thus falsy value, is used to reset to default &ndash;&gt;
-            <option selected></option>
-            <option value="large"></option>
-            <option value="huge"></option>
-          </select>
-          &lt;!&ndash; Add a bold button &ndash;&gt;
-          <button class="ql-bold"></button>
-          &lt;!&ndash; Add subscript and superscript buttons &ndash;&gt;
-          <button class="ql-script" value="sub"></button>
-          <button class="ql-script" value="super"></button>
-        </div>
-      </div>-->
-      <div class="edit" ref="edit"></div>
+      </ButtonGroup>-->
+      <tiny></tiny>
     </Card>
   </div>
 </template>
 
 <script>
-  import Quill from 'quill';
     import { mapGetters } from 'vuex';
-
+    import tiny from './tiny.vue'
     export default {
         name: "Other",
+        components: {
+            tiny
+        },
         data() {
             return {
+                content: '',
                 userInfo: {
                  /*   name: '李四',
                     age: '33',
@@ -73,37 +58,11 @@
         },
 
         mounted() {
-            const toolbar = this.$refs['toolbar'];
-            const container = this.$refs['edit'];
-//            const toolbarOptions = ['bold', 'italic', 'underline', 'strike'];
-//            const toolbarOptions = [['bold', 'italic'], ['link', 'image']];
-            const toolbarOptions = [
-                ['bold', 'italic', 'underline', 'strike'],        // 切换按钮
-                ['blockquote', 'code-block', 'image', 'link', 'formula'],
-
-                [{ 'header': 1 }, { 'header': 2 }],               // 用户自定义按钮值
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                [{ 'script': 'sub'}, { 'script': 'super' }],      // 上标/下标
-                [{ 'indent': '-1'}, { 'indent': '+1' }],          // 减少缩进/缩进
-                [{ 'direction': 'rtl' }],                         // 文本下划线
-
-                [{ 'size': ['small', false, 'large', 'huge'] }],  // 用户自定义下拉
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-                [{ 'color': [] }, { 'background': [] }],          // 主题默认下拉，使用主题提供的值
-                [{ 'font': [] }],
-                [{ 'align': [] }],
-
-                ['clean']                                         // 清除格式
-            ];
-            this.quill = new Quill(container, {
-                placeholder: 'Compose an epic...',
-                theme: 'snow',
-                modules: {
-                    // Equivalent to { toolbar: { container: '#toolbar' }}
-                    toolbar: toolbarOptions
-                }
-            });
+            window.tinymce.init({
+                selector: 'textarea',
+                height: 550,
+                theme: 'modern',
+            })
         },
 
 
