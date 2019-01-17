@@ -18,67 +18,46 @@
       </CellGroup>
     </Card>
     <Card :bordered="false" dis-hover class="f_card">
-      <span slot="title" @click="changeList">Transfer</span>
-      <!--:render-format="render1"-->
-      <Transfer
-              :data="data1"
-              :target-keys="targetKeys1"
-              @on-change="handleChange1">
-      </Transfer>
+      <span slot="title">eidtor</span>
+      <ButtonGroup>
+        <Button @click="getContent">getContent</Button>
+        <Button @click="getText">getText</Button>
+        <Button @click="insertEmbed">insertEmbed</Button>
+        <Button @click="getHTml">getHTml</Button>
+        <Button @click="setContents">setContents</Button>
+        <Button @click="setHtml">setHtml</Button>
+      </ButtonGroup>
+      <div class="toolbar" ref="toolbar"></div>
+    <!--  <div class="toolbar" ref="toolbar">
+        <div id="toolbar">
+          &lt;!&ndash; Add font size dropdown &ndash;&gt;
+          <select class="ql-size">
+            <option value="small"></option>
+            &lt;!&ndash; Note a missing, thus falsy value, is used to reset to default &ndash;&gt;
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+          </select>
+          &lt;!&ndash; Add a bold button &ndash;&gt;
+          <button class="ql-bold"></button>
+          &lt;!&ndash; Add subscript and superscript buttons &ndash;&gt;
+          <button class="ql-script" value="sub"></button>
+          <button class="ql-script" value="super"></button>
+        </div>
+      </div>-->
+      <div class="edit" ref="edit"></div>
     </Card>
   </div>
 </template>
 
 <script>
+  import Quill from 'quill';
     import { mapGetters } from 'vuex';
-
-    const sourceData1 = [{
-        key: 'abc1',
-        label: 'abc111'
-    }, {
-        key: 'abc2',
-        label: 'abc222'
-    }, {
-        key: 'abc3',
-        label: 'abc333'
-    }, {
-        key: 'abc4',
-        label: 'abc444'
-    }];
-
-    const sourceData2 = [{
-        key: 'def1',
-        label: 'def111'
-    }, {
-        key: 'def2',
-        label: 'def222'
-    }, {
-        key: 'def3',
-        label: 'def333'
-    }, {
-        key: 'def4',
-        label: 'def444'
-    }];
-
 
     export default {
         name: "Other",
         data() {
             return {
-                data1: sourceData1,
-                targetKeys1: [],
-                /*value1: '斯蒂夫·盖瑞·沃兹尼亚克',
-                collapseData: [{
-                   title: '史蒂夫·乔布斯',
-                   content: '史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。'
-                }, {
-                    title: '斯蒂夫·盖瑞·沃兹尼亚克',
-                    content: '斯蒂夫·盖瑞·沃兹尼亚克，1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。'
-                }, {
-                    title: '乔纳森·伊夫',
-                    content: '乔纳森·伊夫，1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。'
-                }],*/
-
                 userInfo: {
                  /*   name: '李四',
                     age: '33',
@@ -88,48 +67,78 @@
             }
         },
 
-        methods: {
-            changeList() {
-                this.data1 = sourceData2;
-            },
-           /* getMockData (key = 'abc') {
-                let mockData = [];
-                for (let i = 1; i <= 20; i++) {
-                    mockData.push({
-                        key: key + i,
-                        label: 'Content' + key + i
-                    });
-                }
-                this.data1 = mockData;
-                this.targetKeys1 = [...this.targetKeys1];
-            },*/
-          /*  getTargetKeys () {
-                return this.getMockData()
-                    .filter(() => Math.random() * 2 > 1)
-                    .map(item => item.key);
-            },*/
-            /*render1 (item) {
-                return item.label;
-            },*/
-            handleChange1 (newTargetKeys, direction, moveKeys) {
-                console.log('newTargetKeys', newTargetKeys);
-                console.log('direction', direction);
-                console.log('moveKeys', moveKeys);
-                this.targetKeys1 = newTargetKeys;
-            }
-        },
-
-        watch: {
-            targetKeys1(newVal) {
-                console.log('newVal', newVal);
-            }
-        },
-
         created() {
 //          console.log('user', this.$store.state.user);
             this.userInfo = this.user;
+        },
 
-//            this.getMockData();
+        mounted() {
+            const toolbar = this.$refs['toolbar'];
+            const container = this.$refs['edit'];
+//            const toolbarOptions = ['bold', 'italic', 'underline', 'strike'];
+//            const toolbarOptions = [['bold', 'italic'], ['link', 'image']];
+            const toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike'],        // 切换按钮
+                ['blockquote', 'code-block', 'image', 'link', 'formula'],
+
+                [{ 'header': 1 }, { 'header': 2 }],               // 用户自定义按钮值
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],      // 上标/下标
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // 减少缩进/缩进
+                [{ 'direction': 'rtl' }],                         // 文本下划线
+
+                [{ 'size': ['small', false, 'large', 'huge'] }],  // 用户自定义下拉
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                [{ 'color': [] }, { 'background': [] }],          // 主题默认下拉，使用主题提供的值
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+
+                ['clean']                                         // 清除格式
+            ];
+            this.quill = new Quill(container, {
+                placeholder: 'Compose an epic...',
+                theme: 'snow',
+                modules: {
+                    // Equivalent to { toolbar: { container: '#toolbar' }}
+                    toolbar: toolbarOptions
+                }
+            });
+        },
+
+
+        methods: {
+            getContent() {
+                const content = this.quill.getContents();
+                console.log(content);
+            },
+
+            getText() {
+                const text = this.quill.getText();
+                console.log(text);
+            },
+
+            insertEmbed() {
+                this.quill.insertEmbed(10, 'image', 'http://p3.pstatp.com/large/pgc-image/RC6Uq0v4wFTXdQ');
+            },
+
+            getHTml() {
+//                let [line, offset] = this.quill.getLines();
+//                console.log(line.parent.domNode.innerHTML);
+                console.log(this.quill.container.innerHTML);
+            },
+
+            setContents() {
+                // <h2>dasdasdasdasdasd</h2><p><u>dadasdasd</u></p>
+                this.quill.setContents([
+                    { insert: `<h2>dasdasdasdasdasd</h2><p><u>dadasdasd</u></p>` },
+                    { insert: '\n' }
+                ]);
+            },
+
+            setHtml() {
+                this.quill.clipboard.dangerouslyPasteHTML(0, `<div class="ql-editor" data-gramm="false" contenteditable="true" data-placeholder="Compose an epic..."><p class="ql-align-justify">2019年1月15日，中央纪委国家监委消息，陕西省委原书记赵正永涉嫌严重违纪违法，目前正接受中央纪委国家监委纪律审查和监察调查。</p><p><img src="http://p3.pstatp.com/large/pgc-image/eb6b7a161c764232a8c31f4eecff8f3d" alt="十八大后，这8位落马贪官都曾任省级党委书记"></p><p><br></p><p class="ql-align-justify">北京青年报记者注意到，随着赵正永的落马，十八大后至少8个在任或原任省级党委书记落马。</p><p class="ql-align-justify">除赵正永外，其他7人是：</p><p class="ql-align-justify">江西省委原书记苏荣（2014年6月落马）、云南省委原书记白恩培（2014年8月落马）、河北省委原书记周本顺（2015年7月落马）、辽宁省委原书记王珉（2016年3月落马）、天津市委原代理书记黄兴国（2016年9月落马）、甘肃省委原书记王三运（2017年7月落马）、重庆市委原书记孙政才（2017年7月落马）。</p><p class="ql-align-justify">不过，这些省级党委书记落马时的身份不同。</p><p><img src="http://p1.pstatp.com/large/pgc-image/0ebd150fabcb4545a5c0710305743c64" alt="十八大后，这8位落马贪官都曾任省级党委书记"></p><p><br></p><p class="ql-align-justify">苏荣落马时是“中国人民政治协商会议第十二届全国委员会副主席”，白恩培是“十二届全国人大环境与资源保护委员会副主任委员”，王珉是“十二届全国人大教育科学文化卫生委员会副主任委员”，王三运是“十二届全国人大教育科学文化卫生委员会副主任委员”。</p><p><img src="http://p1.pstatp.com/large/pgc-image/9edf143ff1b24503a33b8f85bf4e4abe" alt="十八大后，这8位落马贪官都曾任省级党委书记"></p><p><br></p><p class="ql-align-justify">周本顺是“河北省委书记、省人大常委会主任”，黄兴国是“天津市委代理书记、市长”。</p><p class="ql-align-justify">官方公布孙政才落马是在2017年7月24日。</p><p class="ql-align-justify">当时新华社报道，“鉴于孙政才同志涉嫌严重违纪，中共中央决定，由中共中央纪律检查委员会对其立案审查。”</p><p class="ql-align-justify">据中央纪委消息称，根据中央巡视组巡视和中央纪委、政法机关查办案件发现及群众举报反映的线索和证据，2017年7月14日，中央决定将孙政才调离重庆市委书记岗位，由中央纪委对其进行纪律审查、开展组织谈话。7月24日，中央政治局会议决定，由中央纪委对孙政才立案审查。</p><p class="ql-align-justify">赵正永担任陕西省委书记是在2012年12月至2016年3月，2016年4月至2018年3月任第十二届全国人民代表大会内务司法委员会副主任委员。</p><p><br></p></div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div><div class="ql-tooltip ql-hidden"><a class="ql-preview" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div>`);
+            }
         },
 
 
