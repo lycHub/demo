@@ -54,6 +54,7 @@
     import 'tinymce/plugins/textpattern'
     import 'tinymce/plugins/help'
     import 'tinymce/plugins/code'
+    import emoji from '../../assets/images/1f615.png'
     export default {
         name: 'tiny',
         data () {
@@ -150,7 +151,7 @@
                     images_upload_handler: function (blobInfo, success, failure) {
                         setTimeout(function() {
                             // no matter what you upload, we will turn it into TinyMCE logo :)
-                            success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
+//                            success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
                         }, 2000);
                     },
                     /*images_upload_handler: function (blobInfo, success, failure) {
@@ -228,18 +229,17 @@
 
             getContent() {
                 // HTML
-//                console.log(tinymce.activeEditor.getContent());
+                console.log(tinymce.activeEditor.getContent());
 //                tinymce.get('content id').getContent()
 //                console.log(tinymce.activeEditor.getContent({format: 'raw'}));
 
                 // Text
-                console.log(tinymce.activeEditor.getContent({format: 'text'}));
+//                console.log(tinymce.activeEditor.getContent({format: 'text'}));
             },
 
             setContent() {
-                tinymce.activeEditor.setContent(`
-                <p class="ql-align-justify">2019年1月15日，中央纪委国家监委消息，陕西省委原书记赵正永涉嫌严重违纪违法，目前正接受中央纪委国家监委纪律审查和监察调查。</p><div class="pgc-img"><img src="http://p3.pstatp.com/large/pgc-image/eb6b7a161c764232a8c31f4eecff8f3d" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p3.pstatp.com/large/pgc-image/eb6b7a161c764232a8c31f4eecff8f3d"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">北京青年报记者注意到，随着赵正永的落马，十八大后至少8个在任或原任省级党委书记落马。</p><p class="ql-align-justify">除赵正永外，其他7人是：</p><p class="ql-align-justify">江西省委原书记苏荣（2014年6月落马）、云南省委原书记白恩培（2014年8月落马）、河北省委原书记周本顺（2015年7月落马）、辽宁省委原书记王珉（2016年3月落马）、天津市委原代理书记黄兴国（2016年9月落马）、甘肃省委原书记王三运（2017年7月落马）、重庆市委原书记孙政才（2017年7月落马）。</p><p class="ql-align-justify">不过，这些省级党委书记落马时的身份不同。</p><div class="pgc-img"><img src="http://p1.pstatp.com/large/pgc-image/0ebd150fabcb4545a5c0710305743c64" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p1.pstatp.com/large/pgc-image/0ebd150fabcb4545a5c0710305743c64"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">苏荣落马时是“中国人民政治协商会议第十二届全国委员会副主席”，白恩培是“十二届全国人大环境与资源保护委员会副主任委员”，王珉是“十二届全国人大教育科学文化卫生委员会副主任委员”，王三运是“十二届全国人大教育科学文化卫生委员会副主任委员”。</p><div class="pgc-img"><img src="http://p1.pstatp.com/large/pgc-image/9edf143ff1b24503a33b8f85bf4e4abe" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p1.pstatp.com/large/pgc-image/9edf143ff1b24503a33b8f85bf4e4abe"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">周本顺是“河北省委书记、省人大常委会主任”，黄兴国是“天津市委代理书记、市长”。</p>
-                `);
+                console.log(emoji);
+                tinymce.activeEditor.setContent(`<img src="${emoji}" height="20px" width="20px">`);
 
               /*  tinymce.activeEditor.setContent(`
                 <p class="ql-align-justify">2019年1月15日，中央纪委国家监委消息，陕西省委原书记赵正永涉嫌严重违纪违法，目前正接受中央纪委国家监委纪律审查和监察调查。</p><div class="pgc-img"><img src="http://p3.pstatp.com/large/pgc-image/eb6b7a161c764232a8c31f4eecff8f3d" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p3.pstatp.com/large/pgc-image/eb6b7a161c764232a8c31f4eecff8f3d"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">北京青年报记者注意到，随着赵正永的落马，十八大后至少8个在任或原任省级党委书记落马。</p><p class="ql-align-justify">除赵正永外，其他7人是：</p><p class="ql-align-justify">江西省委原书记苏荣（2014年6月落马）、云南省委原书记白恩培（2014年8月落马）、河北省委原书记周本顺（2015年7月落马）、辽宁省委原书记王珉（2016年3月落马）、天津市委原代理书记黄兴国（2016年9月落马）、甘肃省委原书记王三运（2017年7月落马）、重庆市委原书记孙政才（2017年7月落马）。</p><p class="ql-align-justify">不过，这些省级党委书记落马时的身份不同。</p><div class="pgc-img"><img src="http://p1.pstatp.com/large/pgc-image/0ebd150fabcb4545a5c0710305743c64" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p1.pstatp.com/large/pgc-image/0ebd150fabcb4545a5c0710305743c64"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">苏荣落马时是“中国人民政治协商会议第十二届全国委员会副主席”，白恩培是“十二届全国人大环境与资源保护委员会副主任委员”，王珉是“十二届全国人大教育科学文化卫生委员会副主任委员”，王三运是“十二届全国人大教育科学文化卫生委员会副主任委员”。</p><div class="pgc-img"><img src="http://p1.pstatp.com/large/pgc-image/9edf143ff1b24503a33b8f85bf4e4abe" alt="十八大后，这8位落马贪官都曾任省级党委书记" data-mce-src="http://p1.pstatp.com/large/pgc-image/9edf143ff1b24503a33b8f85bf4e4abe"><p class="pgc-img-caption"><br></p></div><p class="ql-align-justify">周本顺是“河北省委书记、省人大常委会主任”，黄兴国是“天津市委代理书记、市长”。</p>
