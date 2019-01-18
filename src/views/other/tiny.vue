@@ -134,7 +134,6 @@
                                 var base64 = reader.result.split(',')[1];
                                 var blobInfo = blobCache.create(id, file, base64);
                                 blobCache.add(blobInfo);
-                                console.log(blobInfo);
                                 // call the callback and populate the Title field with the file name
                                 cb(blobInfo.blobUri(), { title: file.name });
                             };
