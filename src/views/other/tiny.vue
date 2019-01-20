@@ -10,6 +10,7 @@
         <Button @click="domParse">domParse</Button>
         <Button @click="SaxParser">SaxParser</Button>
         <Button @click="Serializer">Serializer</Button>
+        <Button @click="disabled">disabled</Button>
         <textarea ref="tinymceEditer" id="tinymceEditer"></textarea>
         <!--<div id="tinymceEditer"></div>-->
     </div>
@@ -350,6 +351,10 @@
             Serializer() {
                 const ser = new tinymce.html.Serializer();
                 console.log(ser.serialize(this.domParse()));
+            },
+
+            disabled() {
+                tinymce.activeEditor.setMode('readonly');
             }
         },
         mounted () {
