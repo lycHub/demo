@@ -21,6 +21,7 @@
     import 'tinymce/plugins/preview'
     import 'tinymce/plugins/fullpage'
 //    import 'tinymce/plugins/powerpaste'
+    import 'tinymce/plugins/paste'
     import 'tinymce/plugins/searchreplace'
     import 'tinymce/plugins/autolink'
     import 'tinymce/plugins/directionality'
@@ -78,13 +79,14 @@
 //                    allow_html_in_named_anchor: true,
 //                    toolbar: false,
 //                    menubar: false,
+//                    paste_as_text: true,         黏贴为纯文本
 //                    inline: true,
 //                    menu: {
 //                        view: {title: 'Happy', items: 'code'}
 //                    },
-                    plugins: 'code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',//
+                    plugins: 'paste code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',//
 //                    menubar: 'file edit view',
-                    toolbar: 'code currentdate formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | undo redo',
+                    toolbar: 'paste code currentdate formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | undo redo',
                     statusbar: false,
                     image_advtab: true,
                     image_title: false,
