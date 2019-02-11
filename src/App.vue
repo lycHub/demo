@@ -23,7 +23,7 @@
             </Menu>
           </Sider>
           <Content class="content">
-            <div class="bread" v-show="$route.meta.breadcrumb"><!--v-if="$route.meta.parentName"-->
+            <div class="bread" v-show="$route.meta.breadcrumb">
               <Breadcrumb separator="&gt;">
                 <BreadcrumbItem :to="item.to" v-for="item in $route.meta.breadcrumb" :key="item.label">{{item.label}}</BreadcrumbItem>
               </Breadcrumb>
