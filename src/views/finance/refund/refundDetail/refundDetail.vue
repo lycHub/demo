@@ -219,7 +219,11 @@
                       this.currentStep = currentIndex === -1 ? this.steps.length : currentIndex;
                   }
                   this.showSpin = false;
-              }))
+              })).catch(err => {
+                  console.error('err', err);
+                  this.$Message.error(err);
+                  this.showSpin = false;
+              })
           }
       }
   };

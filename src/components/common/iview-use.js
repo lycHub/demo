@@ -1,7 +1,10 @@
 import Vue from 'vue';
-import {Transfer, CheckboxGroup, Checkbox, Collapse, Panel, Dropdown, DropdownMenu, DropdownItem, CellGroup, Cell, Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
+import { Message, Breadcrumb, BreadcrumbItem, Transfer, CheckboxGroup, Checkbox, Collapse, Panel, Dropdown, DropdownMenu, DropdownItem, CellGroup, Cell, Modal, Notice, Steps, Step, Spin, Tooltip, Table, Page, ButtonGroup, Button, Layout, Header, Menu, Submenu, MenuItem, Sider, Icon, Card, Form, FormItem, Select, Option, DatePicker, Input, Row, Col } from 'iview';
 
 const components = {
+    Message,
+    Breadcrumb,
+    BreadcrumbItem,
     Transfer,
     CheckboxGroup,
     Checkbox,
@@ -42,6 +45,7 @@ const components = {
 
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Notice = Notice;
+Vue.prototype.$Message = Message;
 Vue.prototype.$Spin = Spin;
 
 for (const attr in components) {
@@ -53,7 +57,7 @@ for (const attr in components) {
 
 
 // 全局配置
-Notice.config({
+Message.config({
     top: 50,
     duration: 3
 });

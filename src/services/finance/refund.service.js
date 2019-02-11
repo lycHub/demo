@@ -1,5 +1,6 @@
 import axios from 'axios';
 import CommonService from '../common.service';
+import {isEmptyObj} from "../../share/utils/tools";
 
 class RefundServe extends CommonService {
     // 单例
@@ -53,14 +54,18 @@ class RefundServe extends CommonService {
 
     // 到账退款流程
     getRefundProcess(id) {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             axios.get(this.uri + 'audit_flow', {
                 params: {
                     id,
                     v: Math.random() * 1000
                 }
             }).then(res => {
-                resolve(this._editProcess(res.data.response.taskMap));
+                if (!res.data.response || isEmptyObj(res.data.response.taskMap)) {
+                    reject('无流程数据');
+                }else {
+                    resolve(this._editProcess(res.data.response.taskMap));
+                }
             });
         });
     }

@@ -23,7 +23,12 @@
             </Menu>
           </Sider>
           <Content class="content">
-            <router-view/>
+            <div class="bread"><!--v-if="$route.meta.parentName"-->
+              <Breadcrumb separator="&gt;">
+                <BreadcrumbItem :to="item.to" v-for="item in $route.meta.breadcrumb" :key="item.label">{{item.label}}</BreadcrumbItem>
+              </Breadcrumb>
+            </div>
+            <router-view />
           </Content>
         </Layout>
       </Layout>
@@ -117,11 +122,14 @@
       }
 
       .content {
-        width: 100%;
+        width: calc(100% - 200px);
         min-width: 1040px;
         background-color: #eee;
         padding: 60px 20px 0 20px;
         margin-left: 200px;
+        .bread{
+          padding: 10px 18px;
+        }
       }
     }
   }

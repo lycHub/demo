@@ -334,7 +334,8 @@
       },
       created() {
           this.loading = true;
-          this.dateArr = this.initMonth;
+//          this.dateArr = this.initMonth;
+          this.dateArr = [];
           this._initDatas();
       },
 
