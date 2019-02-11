@@ -223,7 +223,7 @@
                   console.error('err', err);
                   this.$Message.error(err);
                   this.showSpin = false;
-              })
+              });
           }
       }
   };
