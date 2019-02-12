@@ -46,7 +46,7 @@
                 <i-Input class='item_control' v-model="formValue.telephoneShortNumber"></i-Input>
               </FormItem>
             </i-Col>
-            <i-Col span="24" class="text-right" >
+            <i-Col span="24" class="text-right">
               <ButtonGroup>
                 <Button type="primary" @click="onSearch">搜索</Button>
                 <Button @click="onReset">重置</Button>
