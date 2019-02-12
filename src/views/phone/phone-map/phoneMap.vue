@@ -32,17 +32,17 @@
         <Form ref="phoneMap_form" inline :label-width="120" :model="formValue">
           <Row>
             <i-Col span="8">
-              <FormItem label="钢联管理员ID："  class="form_item" prop="glAdminId">
+              <FormItem label="钢联管理员ID：" class="form_item" prop="glAdminId">
                 <i-Input class='item_control' v-model="formValue.glAdminId"></i-Input>
               </FormItem>
             </i-Col>
             <i-Col span="8">
-              <FormItem label="名称："  class="form_item" prop="employeeName">
+              <FormItem label="名称：" class="form_item" prop="employeeName">
                 <i-Input class='item_control' v-model="formValue.employeeName"></i-Input>
               </FormItem>
             </i-Col>
             <i-Col span="8">
-              <FormItem label="座机短号："  class="form_item" prop="telephoneShortNumber">
+              <FormItem label="座机短号：" class="form_item" prop="telephoneShortNumber">
                 <i-Input class='item_control' v-model="formValue.telephoneShortNumber"></i-Input>
               </FormItem>
             </i-Col>
