@@ -3,7 +3,7 @@
     position: relative;
 
     .f_card{
-      margin: 20px 0;
+      margin-bottom: 20px;
 
       .infoTable {
         border: 1px solid rgb(187, 187, 187);

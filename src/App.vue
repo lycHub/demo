@@ -48,9 +48,6 @@
         <FormItem label="email">
           <i-Input v-model="userInfo.email" ></i-Input>
         </FormItem>
-      <!--  <FormItem>
-          <NcSlider @ncValid="isValid = true"></NcSlider>
-        </FormItem>-->
       </Form>
     </Modal>
   </div>
@@ -82,7 +79,6 @@
                   ]
               }],
               userInfo: {},
-//              isValid: false,
               showModal: false
           }
       },
@@ -128,7 +124,7 @@
         padding: 60px 20px 0 20px;
         margin-left: 200px;
         .bread{
-          padding: 10px 18px;
+          padding: 18px;
         }
       }
     }

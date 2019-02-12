@@ -1,9 +1,10 @@
-import axios from 'axios';
+import request from 'share/configs/axios';
+
 export default class CommonService {
     // 获取支付类型
     getPayTypes() {
         return new Promise(resolve => {
-            axios.get('/finance/common/select', {
+            request.get('/finance/common/select', {
                 params: {
                     type: "PayTypeEnum",
                     timestamp: +new Date()
@@ -18,7 +19,7 @@ export default class CommonService {
     // 搜索员工
     searchEmployees(name) {
         return new Promise(resolve => {
-            axios.get('/callcenter/call-center/callblacklist/select_employee', {
+            request.get('/callcenter/call-center/callblacklist/select_employee', {
                 params: { name }
             }).then(res => {
                 if (res.data.response) {

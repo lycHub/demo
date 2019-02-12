@@ -1,7 +1,7 @@
 <style lang="less" scoped>
   .phoneMap{
     .f_card{
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
 
     .form_wrap {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import request from 'share/configs/axios';
 import CommonService from '../common.service';
 import {isEmptyObj} from "../../share/utils/tools";
 
@@ -19,7 +19,7 @@ class RefundServe extends CommonService {
     // 获取列表数据
     getRefundList(params) {
         return new Promise((resolve, reject) => {
-            axios.get(this.uri + 'list_refund_page', {
+            request.get(this.uri + 'list_refund_page', {
                 params: {
                     ...params,
                     v: Math.random() * 1000
@@ -41,7 +41,7 @@ class RefundServe extends CommonService {
     // 到账退款详情
     getRefundDetail(applyId) {
         return new Promise(resolve => {
-            axios.get(this.uri + 'transfer_refund_audit_info', {
+            request.get(this.uri + 'transfer_refund_audit_info', {
                 params: {
                     applyId,
                     v: Math.random() * 1000
@@ -55,7 +55,7 @@ class RefundServe extends CommonService {
     // 到账退款流程
     getRefundProcess(id) {
         return new Promise((resolve, reject) => {
-            axios.get(this.uri + 'audit_flow', {
+            request.get(this.uri + 'audit_flow', {
                 params: {
                     id,
                     v: Math.random() * 1000
@@ -74,7 +74,7 @@ class RefundServe extends CommonService {
     // 到账退款记录
     getRefundRecords(id) {
         return new Promise(resolve => {
-            axios.get(this.uri + 'audit_log', {
+            request.get(this.uri + 'audit_log', {
                 params: {
                     id,
                     v: Math.random() * 1000
@@ -88,7 +88,7 @@ class RefundServe extends CommonService {
     // 到账退款审核或驳回
     refundOperate(params) {
         return new Promise(resolve => {
-            axios.get(this.uri + 'transfer_refund_audit', {
+            request.get(this.uri + 'transfer_refund_audit', {
                 params: {
                     ...params,
                     v: Math.random() * 1000

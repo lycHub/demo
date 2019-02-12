@@ -1,7 +1,7 @@
 <style lang="less" scoped>
   .refund{
     .f_card{
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
 
     .form_wrap {
@@ -334,8 +334,8 @@
       },
       created() {
           this.loading = true;
-//          this.dateArr = this.initMonth;
-          this.dateArr = [];
+          this.dateArr = this.initMonth;
+//          this.dateArr = [];
           this._initDatas();
       },
 
