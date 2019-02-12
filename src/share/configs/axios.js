@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const baseUrl = 'https://mgt.oilchem.net';
 
 axios.interceptors.response.use(function (response) {
