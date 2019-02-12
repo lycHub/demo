@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import axios from 'axios';
 const baseUrl = 'https://mgt.oilchem.net';
 
 // create an axios instance
