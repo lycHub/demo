@@ -21,14 +21,23 @@
         {{value[0]}} -- {{value[1]}}
       </div>
     </Card>
+
+
+    <Card :bordered="false" dis-hover class="f_card">
+      <span slot="title">tooltip</span>
+      <VTooltip content="Here is the prompt text">
+        tooltip
+      </VTooltip>
+    </Card>
   </div>
 </template>
 
 <script>
 import VSlider from './v-slider'
+import VTooltip from './v-tooltip'
 export default {
   name: "Other",
-  components: { VSlider },
+  components: { VSlider, VTooltip },
   data() {
     return {
       value: [10, 20],
@@ -36,14 +45,12 @@ export default {
         0: '0°C',
         10: '10°C',
         26: '26°C',
-        37: '37°C'
+        37: '37°C',
+        41: '41°C'
       }
     };
   },
 
-  created() {
-    
-  },
   methods: {
     formatScales(val) {
       return '$' + val + '$';
@@ -51,3 +58,6 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+
+</style>

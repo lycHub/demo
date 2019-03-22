@@ -174,12 +174,15 @@
           const marginLeft = -(scaleWidth / 2);
 
           for (const key in this.customScales) {
-            scales.push({
-              val: this.customScales[key],
-              scaleWidth,
-              marginLeft,
-              left: ((key - this.min) / this.valueRange) * 100
-            });
+            const val = typeof key === 'number' ? this.customScales[key] : parseFloat(this.customScales[key]);
+            if (val >= this.min && val <= this.max) {
+              scales.push({
+                val,
+                scaleWidth,
+                marginLeft,
+                left: ((key - this.min) / this.valueRange) * 100
+              });
+            }
           }
         }else {
           const scaleCount = (this.valueRange / this.step);
