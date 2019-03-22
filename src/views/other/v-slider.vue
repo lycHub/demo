@@ -5,12 +5,14 @@
     <div :class="[prefixCls + '-bar']" :style="barStyle" @click.self="sliderClick"></div>
 
     <!-- 断点 -->
-    <template v-show="showDots">
+    <template v-if="showDots">
       <div :class="[{active: item.active}, prefixCls + '-dot']" v-for="item in dots" :key="item.left" :style="{ 'left': item.left + '%' }" @click.self="sliderClick"></div>
     </template>
 
     <!-- 刻度 -->
-    
+    <div :class="[prefixCls + '-scales']" v-show="showScales">
+      <span v-for="item in scales" :key="item.val" :style="{width: item.scaleWidth + '%', marginLeft: item.marginLeft + '%', left: item.left + '%'}">{{item.val}}</span>
+    </div>
 
     <!-- 色块 -->
     <div :class="[prefixCls + '-button-wrap']" :style="{left: minPosition + '%'}" @touchstart="onHandStart($event, 'min')" @mousedown="onHandStart($event, 'min')">
@@ -41,6 +43,11 @@
         type: Boolean,
         default: false
       },
+      showScales: {
+        type: Boolean,
+        default: false
+      },
+      customScales: Array,
       value: {
         type: [Number, Array],
         default: 0
@@ -120,35 +127,72 @@
         return this.max - this.min;
       },
       dots() {
-        let stopCount = this.valueRange / this.step;
-        let result = [];
+        const dotCount = this.valueRange / this.step;
+        const dots = [];
 
         // (刻度间隔 / 100) = (this.step / this.valueRange)
-        let stepWidth = 100 * this.step / this.valueRange;
-        /* for (let i = 1; i < stopCount; i++) {
-            result.push(i * stepWidth);
-        } */
+        const stepWidth = 100 * this.step / this.valueRange;
 
-        let vals = [];
-        for (let i = 1; i < stopCount; i++) {
-          // console.log('this.barStyle :', this.barStyle);
+        for (let i = 1; i < dotCount; i++) {
           const barStyle = {
             width: this.barStyle.width && Number(this.barStyle.width.slice(0, -1)),
             left: this.barStyle.left && Number(this.barStyle.left.slice(0, -1)) || 0
           }
           const left = i * stepWidth;
           const active = this.range ? ((left > barStyle.left) && (left < (barStyle.left + barStyle.width))) : (left < barStyle.width);
-          result.push({ left, active });
-          vals.push(Math.floor(((left / 100) * this.valueRange) + this.min));
+          dots.push({ left, active });
         }
-        // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
-        vals = [this.min, ...vals, this.max];
-        console.log('result :', result);
-        console.log('vals :', vals);
-        return result;
+        
+        // console.log('dots :', dots);
+        return dots;
+      },
+      scales() {
+        const scales = [];
+        if (this.customScales) {
+          const scaleCount = this.customScales.length;
+
+          const scaleWidth = (100 / scaleCount);
+          const marginLeft = -(scaleWidth / 2);
+
+          for (let i = 0; i < scaleCount; i++) {
+            // const left = i * (100 * this.step / this.valueRange);
+
+            // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
+            scales.push({
+              val: this.customScales[i],
+              scaleWidth,
+              marginLeft,
+              left: ((this.customScales[i] - this.min) / this.valueRange) * 100
+            });
+          }
+        }else {
+          const scaleCount = (this.valueRange / this.step);
+
+          const scaleWidth = (100 / scaleCount);
+          const marginLeft = -(scaleWidth / 2);
+
+          for (let i = 0; i <= scaleCount; i++) {
+            const left = i * (100 * this.step / this.valueRange);
+
+            // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
+            // const val = (i === 0) ? this.min : Math.floor(((left / 100) * this.valueRange) + this.min);
+            scales.push({
+              val: Math.floor(((left / 100) * this.valueRange) + this.min),
+              scaleWidth,
+              marginLeft,
+              left
+            });
+          }
+        }
+        
+        // console.log('scales :', this.scales);
+        return scales;
       }
     },
     watch: {
+      showDots(n) {
+        console.log('showDots :', n);
+      },
       value (val) {
         val = this.checkLimits(Array.isArray(val) ? val : [val]);
         if (val[0] !== this.currentValue[0] || val[1] !== this.currentValue[1]) {
@@ -229,6 +273,7 @@
         }else {
           newVal = this.checkLimits([this.min, newVal])[1];
         }
+        // console.log('newVal :', newVal);
 
         const modulus = this.handleDecimal(newVal, this.step);
           // console.log('modulus :', modulus); newPos % this.step
@@ -285,6 +330,11 @@
       this.startX = 0;
       this.currentX = 0;
       this.startVal = 0;
+
+      setTimeout(() => {
+        // console.log('dots :', this.dots);
+        console.log('scales :', this.scales);
+      }, 2000);
     }
   }
 </script>
@@ -302,7 +352,7 @@
 
     .v-slider-bar{
       height: 4px;
-      background: #57a3f3;
+      background-color: #57a3f3;
       border-radius: 3px;
       position: absolute;
     }
@@ -318,7 +368,21 @@
       border-radius: 50%;
       cursor: pointer;
       &.active{
-        border-color:#40a9ff;
+        border-color:#57a3f3;
+      }
+    }
+
+    .v-slider-scales{
+      position: absolute;
+      top: 14px;
+      left: 0;
+      width: 100%;
+      font-size: 14px;
+      span{
+        position: absolute;
+        color: rgba(0,0,0,.45);
+        text-align: center;
+        cursor: pointer;
       }
     }
 

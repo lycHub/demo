@@ -11,10 +11,12 @@
     <Card :bordered="false" dis-hover class="f_card">
       <span slot="title">slider</span>
       <div style="width:500px; margin:20px auto;">
-        <!-- <Slider v-model="value" :min="6" :max="60" range :step="2"></Slider> -->
-        <!-- <VSlider v-model="value" :min="4" :max="16" :step="2" range showScales></VSlider> -->
-        <VSlider v-model="value" :min="4" :max="10" showDots range></VSlider>
-        <!-- 4 5 6 7 8 9 10 -->
+        <!-- <Slider v-model="value" :min="6" :max="60" range></Slider> -->
+        <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots></VSlider> -->
+        <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots></VSlider>
+        <!-- <VSlider v-model="value" :min="4" :max="10" showDots range></VSlider> -->
+        <!-- <VSlider v-model="value" :min="0" :max="100" :step="10" range showScales></VSlider> -->
+        {{value[0]}} -- {{value[1]}}
       </div>
     </Card>
   </div>
@@ -27,7 +29,7 @@ export default {
   components: { VSlider },
   data() {
     return {
-      value: [4, 10]
+      value: [10, 20]
     };
   },
 
