@@ -341,7 +341,7 @@
 
       computed: {
         initMonth() {
-            return [startOfMonth(Date.now()), endOfMonth(Date.now())];
+          return [startOfMonth(Date.now()), endOfMonth(Date.now())];
         }
       },
 
@@ -383,15 +383,15 @@
           },
 
           _getPayTypes() {
-              return RefundServe.getPayTypes();
+            return RefundServe.getPayTypes();
           },
           _getRefundList(init = false) {
               if (!this.dateArr[0] || !this.dateArr[1]) {
-                  this.formValue.transferStartTime = this.formValue.transferEndTime = '';
+                this.formValue.transferStartTime = this.formValue.transferEndTime = '';
               }else {
-                  this.formValue.transferStartTime = +this.dateArr[0];
+                this.formValue.transferStartTime = +this.dateArr[0];
 //                  this.formValue.transferEndTime = +(endOfDay(this.dateArr[1]));
-                  this.formValue.transferEndTime = getTime(endOfDay(this.dateArr[1]));
+                this.formValue.transferEndTime = getTime(endOfDay(this.dateArr[1]));
               }
 
 
