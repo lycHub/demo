@@ -14,7 +14,7 @@
         <!-- <Slider v-model="value" :min="6" :max="60" range></Slider> -->
         <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots></VSlider> -->
         <!-- <VSlider v-model="value" scalePoi="top" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider> -->
-        <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatTip="formatTip"></VSlider>
+        <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatTip="formatTip" :customScales="customScales"></VSlider>
         <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider> -->
         <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatScales="formatScales"></VSlider> -->
         <!-- <VSlider v-model="value" :min="4" :max="10" showDots range></VSlider> -->
@@ -26,7 +26,9 @@
 
     <Card :bordered="false" dis-hover class="f_card">
       <span slot="title">垂直</span>
-      <VSlider v-model="value2" :min="6" :max="60"></VSlider>
+      <div style="width:10px;height:300px;margin:0 100px;">
+        <VSlider v-model="value2" :min="0" :max="60" :step="10" showDots :vertical="true" range showScales :customScales="customScales"></VSlider>
+      </div>
     </Card>
   </div>
 </template>
@@ -40,7 +42,7 @@ export default {
   data() {
     return {
       value: [10, 20],
-      value2: 20,
+      value2: [10, 20],
       customScales: {
         0: '0°C',
         10: '10°C',
