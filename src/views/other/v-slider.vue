@@ -47,7 +47,13 @@
         type: Boolean,
         default: false
       },
-      customScales: Array,
+      formatScales: {
+          type: Function,
+          default (val) {
+            return val;
+          }
+      },
+      customScales: Object,
       value: {
         type: [Number, Array],
         default: 0
@@ -149,20 +155,16 @@
       scales() {
         const scales = [];
         if (this.customScales) {
-          const scaleCount = this.customScales.length;
-
+          const scaleCount = Object.keys(this.customScales).length;
           const scaleWidth = (100 / scaleCount);
           const marginLeft = -(scaleWidth / 2);
 
-          for (let i = 0; i < scaleCount; i++) {
-            // const left = i * (100 * this.step / this.valueRange);
-
-            // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
+          for (const key in this.customScales) {
             scales.push({
-              val: this.customScales[i],
+              val: this.customScales[key],
               scaleWidth,
               marginLeft,
-              left: ((this.customScales[i] - this.min) / this.valueRange) * 100
+              left: ((key - this.min) / this.valueRange) * 100
             });
           }
         }else {
@@ -177,7 +179,7 @@
             // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
             // const val = (i === 0) ? this.min : Math.floor(((left / 100) * this.valueRange) + this.min);
             scales.push({
-              val: Math.floor(((left / 100) * this.valueRange) + this.min),
+              val: this.formatScales(Math.floor(((left / 100) * this.valueRange) + this.min)),
               scaleWidth,
               marginLeft,
               left
