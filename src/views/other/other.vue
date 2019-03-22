@@ -25,10 +25,8 @@
 
 
     <Card :bordered="false" dis-hover class="f_card">
-      <span slot="title">tooltip</span>
-      <VTooltip content="Here is the prompt text">
-        tooltip
-      </VTooltip>
+      <span slot="title">垂直</span>
+      <VSlider v-model="value2" :min="6" :max="60"></VSlider>
     </Card>
   </div>
 </template>
@@ -42,6 +40,7 @@ export default {
   data() {
     return {
       value: [10, 20],
+      value2: 20,
       customScales: {
         0: '0°C',
         10: '10°C',

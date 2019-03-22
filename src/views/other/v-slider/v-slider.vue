@@ -7,8 +7,8 @@
     <template v-if="showDots">
       <div
         :class="[{active: item.active}, prefixCls + '-dot']"
-        v-for="item in dots"
-        :key="item.left"
+        v-for="(item, index) in dots"
+        :key="index"
         :style="{ 'left': item.left + '%' }"
         @click.self="sliderClick"
       ></div>
@@ -17,8 +17,8 @@
     <!-- 刻度 -->
     <div :class="[prefixCls + '-scales']" v-show="showScales" :style="{top: scaleTop + 'px'}">
       <span
-        v-for="item in scales"
-        :key="item.val"
+        v-for="(item, index) in scales"
+        :key="index"
         :style="{width: item.scaleWidth + '%', marginLeft: item.marginLeft + '%', left: item.left + '%'}"
       >{{item.val}}</span>
     </div>
