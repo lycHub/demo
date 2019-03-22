@@ -13,6 +13,7 @@
       <div style="width:500px; margin:20px auto;">
         <!-- <Slider v-model="value" :min="6" :max="60" range></Slider> -->
         <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots></VSlider> -->
+        <!-- <VSlider v-model="value" scalePoi="top" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider> -->
         <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider>
         <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatScales="formatScales"></VSlider> -->
         <!-- <VSlider v-model="value" :min="4" :max="10" showDots range></VSlider> -->

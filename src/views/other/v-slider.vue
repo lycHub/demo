@@ -10,7 +10,7 @@
     </template>
 
     <!-- 刻度 -->
-    <div :class="[prefixCls + '-scales']" v-show="showScales">
+    <div :class="[prefixCls + '-scales']" v-show="showScales" :style="{top: scaleTop + 'px'}">
       <span v-for="item in scales" :key="item.val" :style="{width: item.scaleWidth + '%', marginLeft: item.marginLeft + '%', left: item.left + '%'}">{{item.val}}</span>
     </div>
 
@@ -47,13 +47,27 @@
         type: Boolean,
         default: false
       },
+
+      // 格式化scale
       formatScales: {
-          type: Function,
-          default (val) {
-            return val;
-          }
+        type: Function,
+        default (val) {
+          return val;
+        }
       },
+
+      // 自定义scale
       customScales: Object,
+
+      // scale位置
+      scalePoi: {
+        type: String,
+        default: 'bottom',
+        validator (value) {
+          return oneOf(value, ['top', 'bottom']);
+        }
+      },
+
       value: {
         type: [Number, Array],
         default: 0
@@ -186,9 +200,11 @@
             });
           }
         }
-        
-        // console.log('scales :', this.scales);
         return scales;
+      },
+
+      scaleTop() {
+        return this.scalePoi === 'top' ? -22 : 14;
       }
     },
     watch: {
@@ -376,7 +392,7 @@
 
     .v-slider-scales{
       position: absolute;
-      top: 14px;
+      // top: 14px;
       left: 0;
       width: 100%;
       font-size: 14px;
