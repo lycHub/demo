@@ -1,5 +1,5 @@
 <template>
-  <div :class="[prefixCls + '-wrap']" ref="slider" :style="wrapStyle" @click.self="sliderClick">
+  <div :class="[prefixCls + '-wrap', { disabled }]" ref="slider" :style="wrapStyle" @click.self="sliderClick">
     <!-- 色条 -->
     <div :class="[prefixCls + '-bar']" :style="barStyle" @click.self="sliderClick"></div>
 
@@ -119,9 +119,8 @@ export default {
     // scale位置
     scalePoi: {
       type: String,
-      default: "bottom",
       validator(value) {
-        return oneOf(value, ["top", "bottom"]);
+        return oneOf(value, ["top", "bottom", "left", "right"]);
       }
     },
 
@@ -321,7 +320,21 @@ export default {
     },
 
     scalePlace() {
-      return this.scalePoi === "top" ? -22 : 14;
+      let val = null;
+      if (this.vertical) {
+        if (oneOf(this.scalePoi, ['left', 'right'])) {
+          val = this.scalePoi === "right" ? 14 : -32;
+        }else {
+          val = 14;
+        }
+      }else {
+        if (oneOf(this.scalePoi, ['top', 'bottom'])) {
+          val = this.scalePoi === "top" ? -22 : 14;
+        }else {
+          val = 14;
+        }
+      }
+      return val;
     },
     tipDisabled() {
       return (this.formatTip(this.currentValue[0]) === null || this.showTip === "never");
@@ -419,7 +432,6 @@ export default {
             });
           }
         }
-        console.log('dsadasd :', scales);
       } else {
         const scaleCount = this.valueRange / this.step;
 
@@ -430,8 +442,9 @@ export default {
           const left = i * ((100 * this.step) / this.valueRange);
 
           // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
+          const val = this.step < 1 ? this.formatScales((left / 100) * this.valueRange + this.min) : this.formatScales(Math.floor((left / 100) * this.valueRange + this.min))
           scales.push({
-            val: this.formatScales(Math.floor((left / 100) * this.valueRange + this.min)),
+            val,
             width: width + '%',
             marginLeft: marginLeft + '%',
             left: left + '%'
@@ -470,9 +483,9 @@ export default {
           const bottom = i * ((100 * this.step) / this.valueRange);
 
           // (当前位置 / 100) = (当前数值 - 最小数值) / 数值范围
-          // const val = (i === 0) ? this.min : Math.floor(((left / 100) * this.valueRange) + this.min);
+          const val = this.step < 1 ? this.formatScales((bottom / 100) * this.valueRange + this.min) : this.formatScales(Math.floor((bottom / 100) * this.valueRange + this.min))
           scales.push({
-            val: this.formatScales(Math.floor((bottom / 100) * this.valueRange + this.min)),
+            val,
             // height: height + '%',
             transform: 'translateY(50%)',
             bottom: bottom + '%'
@@ -509,10 +522,8 @@ export default {
       // (鼠标当前位置 - 鼠标起始位置) / 总长 * 数值范围 = 变化的值 <=> (变化的值 / 数值范围) = (鼠标当前位置 - 鼠标起始位置) / 总长
       const diff =
         ((this.current - this.start) / this.sliderWidth) * this.valueRange;
-      console.log("diff :", diff);
-      const newVal = this.vertical
-        ? this.startVal - diff
-        : this.startVal + diff;
+//      console.log("diff :", diff);
+      const newVal = this.vertical ? this.startVal - diff : this.startVal + diff;
       this.changeButtonPosition(newVal);
     },
 
@@ -536,21 +547,14 @@ export default {
       const sliderOffsetLeft = this.$refs.slider.getBoundingClientRect().left;
 
       // 新值
-      let newVal =
-        ((current - sliderOffsetLeft) / this.sliderWidth) * this.valueRange +
-        this.min;
+      let newVal = ((current - sliderOffsetLeft) / this.sliderWidth) * this.valueRange + this.min;
       // console.log('newPos :', newPos);
       if (!this.range || newVal <= this.minPosition) {
         this.changeButtonPosition(newVal, "min");
       } else if (newVal >= this.maxPosition) {
         this.changeButtonPosition(newVal, "max");
       } else {
-        this.changeButtonPosition(
-          newVal,
-          newVal - this.currentValue[0] <= this.currentValue[1] - newVal
-            ? "min"
-            : "max"
-        );
+        this.changeButtonPosition(newVal, newVal - this.currentValue[0] <= this.currentValue[1] - newVal ? "min" : "max");
       }
     },
 
@@ -562,7 +566,8 @@ export default {
       } else {
         newVal = this.checkLimits([this.min, newVal])[1];
       }
-      // console.log('newVal :', newVal);
+
+//      console.log('newVal :', newVal);
 
       const modulus = this.handleDecimal(newVal, this.step);
       // console.log('modulus :', modulus); newPos % this.step
@@ -628,7 +633,7 @@ export default {
 
     setTimeout(() => {
       // console.log('dots :', this.dots);
-      console.log("scales :", this.scales);
+//      console.log("scales :", this.scales);
     }, 2000);
   }
 };
@@ -644,6 +649,7 @@ export default {
   vertical-align: middle;
   position: relative;
   cursor: pointer;
+    user-select: none;
 
   .v-slider-bar {
     // height: 4px;
@@ -720,5 +726,23 @@ export default {
       transform: scale(1.3);
     }
   }
+
+
+    &.disabled{
+        .v-slider-bar{
+            background-color: #e8e8e8;
+        }
+        .v-slider-dot, .v-slider-dot-vertical{
+            &.active{
+                border-color: #e8e8e8;
+            }
+        }
+        .v-slider-button-wrap{
+            cursor: not-allowed;
+            .v-slider-button{
+                border-color: #e8e8e8;
+            }
+        }
+    }
 }
 </style>
