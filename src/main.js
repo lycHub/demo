@@ -20,8 +20,8 @@ import './components/business'
 import 'iview/dist/styles/iview.css'
 import './assets/styles/index.less'
 
-
-
+import VSlider from './v-slider'
+Vue.use(VSlider);
 new Vue({
   router,
   store,
