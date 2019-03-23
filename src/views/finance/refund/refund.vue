@@ -1,7 +1,7 @@
 <style lang="less" scoped>
   .refund{
     .f_card{
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
 
     .form_wrap {
@@ -26,7 +26,7 @@
         <Form ref="refund_form" :model="formValue" :label-width="100">
           <Row type="flex" justify="space-between">
             <i-Col span="7">
-              <FormItem label="支付方式："  prop="payType">
+              <FormItem label="支付方式：" prop="payType">
                 <Select v-model="formValue.payType">
                   <Option v-for="item in payTypes" :key="item.value" :value="item.value">{{item.desc}}</Option>
                 </Select>
@@ -335,12 +335,13 @@
       created() {
           this.loading = true;
           this.dateArr = this.initMonth;
+//          this.dateArr = [];
           this._initDatas();
       },
 
       computed: {
         initMonth() {
-            return [startOfMonth(Date.now()), endOfMonth(Date.now())];
+          return [startOfMonth(Date.now()), endOfMonth(Date.now())];
         }
       },
 
@@ -382,15 +383,15 @@
           },
 
           _getPayTypes() {
-              return RefundServe.getPayTypes();
+            return RefundServe.getPayTypes();
           },
           _getRefundList(init = false) {
               if (!this.dateArr[0] || !this.dateArr[1]) {
-                  this.formValue.transferStartTime = this.formValue.transferEndTime = '';
+                this.formValue.transferStartTime = this.formValue.transferEndTime = '';
               }else {
-                  this.formValue.transferStartTime = +this.dateArr[0];
+                this.formValue.transferStartTime = +this.dateArr[0];
 //                  this.formValue.transferEndTime = +(endOfDay(this.dateArr[1]));
-                  this.formValue.transferEndTime = getTime(endOfDay(this.dateArr[1]));
+                this.formValue.transferEndTime = getTime(endOfDay(this.dateArr[1]));
               }
 
 

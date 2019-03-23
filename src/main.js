@@ -5,7 +5,11 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+// 全局配置
 import './share/configs/axios'
+
+// 全局指令
+import './share/directives/index'
 
 // 全局组件
 import './components/common'

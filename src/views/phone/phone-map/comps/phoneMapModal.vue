@@ -37,6 +37,11 @@
   import {debounce} from 'throttle-debounce';
   export default {
     name: "phoneMapModal",
+    created() {
+      this.remoteMethod = debounce(300, false, keyword => {
+          this._remoteMethod(keyword);
+      });
+    },
     props: {
       showPhoneMapModal: {
         type: Boolean,
@@ -82,11 +87,7 @@
       }
     },
 
-    created() {
-      this.remoteMethod = debounce(300, false, keyword => {
-          this._remoteMethod(keyword);
-      });
-    },
+    
     computed: {
       modalTitle() {
         return this.modalType === 'save' ? '新增话机' : '修改话机';

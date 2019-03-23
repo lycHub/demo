@@ -1,23 +1,31 @@
 <style lang="less" scoped>
-  .other{
-    .f_card{
-      margin: 20px 0;
-    }
+.other {
+  .f_card {
+    margin: 20px 0;
   }
+}
 </style>
 
 <template>
   <div class="other">
     <Card :bordered="false" dis-hover class="f_card">
-      <span slot="title">个人信息</span>
-      <CellGroup class="info">
-        <Cell title="姓名" :extra="userInfo.name" />
-        <Cell title="年龄" :extra="userInfo.age" />
-        <Cell title="电话" :extra="userInfo.tel" />
-        <Cell title="email" :extra="userInfo.email" />
-      </CellGroup>
+      <span slot="title">slider</span>
+      <div style="width:500px; margin:20px auto;">
+        <!-- <Slider v-model="value" :min="6" :max="60" range></Slider> -->
+        <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots></VSlider> -->
+        <!-- <VSlider v-model="value" scalePoi="top" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider> -->
+        <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatTip="formatTip" :customScales="customScales"></VSlider>
+        <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :customScales="customScales"></VSlider> -->
+        <!-- <VSlider v-model="value" :min="0" :max="60" :step="10" range showScales showDots :formatScales="formatScales"></VSlider> -->
+        <!-- <VSlider v-model="value" :min="4" :max="10" showDots range></VSlider> -->
+        <!-- <VSlider v-model="value" :min="0" :max="100" :step="10" range showScales></VSlider> -->
+        {{value[0]}} -- {{value[1]}}
+      </div>
     </Card>
+
+
     <Card :bordered="false" dis-hover class="f_card">
+<<<<<<< HEAD
       <span slot="title">contenteditable</span>
       <div>
         <ButtonGroup>
@@ -27,12 +35,18 @@
         <div contenteditable="true" @paste="onPaste" @mouseup="onMouseUp" style="border: 1px solid #d8d8d8;border-radius: 5px;padding: 10px;" ref="content">
 
         </div>
+=======
+      <span slot="title">垂直</span>
+      <div style="width:10px;height:300px;margin:0 100px;">
+        <VSlider v-model="value2" :min="0" :max="60" :step="10" showDots :vertical="true" range showScales :customScales="customScales"></VSlider>
+>>>>>>> 657fe3c67610bf1b536e96ff2018ac26ee1f7d65
       </div>
     </Card>
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
     import { mapGetters } from 'vuex';
     import emoji from '../../assets/images/1f615.png'
     export default {
@@ -111,8 +125,37 @@
                 console.log(result);
             }
         },
-
-
-        computed: mapGetters(['user'])  // 语法糖，相当于this.user = this.$store.state.user
+=======
+import VSlider from './v-slider/v-slider'
+import VTooltip from './v-tooltip'
+export default {
+  name: "Other",
+  components: { VSlider, VTooltip },
+  data() {
+    return {
+      value: [10, 20],
+      value2: [10, 20],
+      customScales: {
+        0: '0°C',
+        10: '10°C',
+        26: '26°C',
+        37: '37°C',
+        41: '41°C'
+      }
     };
+  },
+>>>>>>> 657fe3c67610bf1b536e96ff2018ac26ee1f7d65
+
+  methods: {
+    formatScales(val) {
+      return '$' + val + '$';
+    },
+    formatTip(val) {
+      return '$' + val + '$';
+    }
+  }
+};
 </script>
+<style lang="less" scoped>
+
+</style>

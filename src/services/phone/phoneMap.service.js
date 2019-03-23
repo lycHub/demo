@@ -1,5 +1,6 @@
-import axios from 'axios';
+import request from 'share/configs/axios';
 import CommonService from '../common.service';
+
 class PhoneMapServe extends CommonService {
     // 单例
     static singleInstance(){
@@ -17,7 +18,7 @@ class PhoneMapServe extends CommonService {
     // 获取列表数据
     getListPage(params) {
         return new Promise((resolve, reject) => {
-            axios.post(this.uri + 'list_page', params).then(res => {
+            request.post(this.uri + 'list_page', params).then(res => {
                 if (res.data.response) {
                     resolve({
                         total: res.data.response.total,
@@ -33,7 +34,7 @@ class PhoneMapServe extends CommonService {
     // 新增修改删除话机映射
     operatePhoneMap(type, params) {
         return new Promise(resolve => {
-            axios.post(this.uri + type, params).then(res => {
+            request.post(this.uri + type, params).then(res => {
                 resolve(res.data);
             })
         });

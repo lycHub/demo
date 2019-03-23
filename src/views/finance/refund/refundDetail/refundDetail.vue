@@ -3,7 +3,7 @@
     position: relative;
 
     .f_card{
-      margin: 20px 0;
+      margin-bottom: 20px;
 
       .infoTable {
         border: 1px solid rgb(187, 187, 187);
@@ -219,7 +219,11 @@
                       this.currentStep = currentIndex === -1 ? this.steps.length : currentIndex;
                   }
                   this.showSpin = false;
-              }))
+              })).catch(err => {
+                  console.error('err', err);
+                  this.$Message.error(err);
+                  this.showSpin = false;
+              });
           }
       }
   };

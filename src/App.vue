@@ -23,7 +23,12 @@
             </Menu>
           </Sider>
           <Content class="content">
-            <router-view/>
+            <div class="bread" v-show="$route.meta.breadcrumb">
+              <Breadcrumb separator="&gt;">
+                <BreadcrumbItem :to="item.to" v-for="item in $route.meta.breadcrumb" :key="item.label">{{item.label}}</BreadcrumbItem>
+              </Breadcrumb>
+            </div>
+            <router-view />
           </Content>
         </Layout>
       </Layout>
@@ -43,9 +48,6 @@
         <FormItem label="email">
           <i-Input v-model="userInfo.email" ></i-Input>
         </FormItem>
-      <!--  <FormItem>
-          <NcSlider @ncValid="isValid = true"></NcSlider>
-        </FormItem>-->
       </Form>
     </Modal>
   </div>
@@ -77,7 +79,6 @@
                   ]
               }],
               userInfo: {},
-//              isValid: false,
               showModal: false
           }
       },
@@ -105,7 +106,7 @@
         position: fixed;
         top:0;
         width: 100%;
-        z-index: 1;
+        z-index: 5;
         color: @color-white;
         background-color: @color-blue;
       }
@@ -117,11 +118,14 @@
       }
 
       .content {
-        width: 100%;
+        width: calc(100% - 200px);
         min-width: 1040px;
         background-color: #eee;
         padding: 60px 20px 0 20px;
         margin-left: 200px;
+        .bread{
+          padding: 18px;
+        }
       }
     }
   }
