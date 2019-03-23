@@ -5,6 +5,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 
 module.exports = {
+<<<<<<< Updated upstream
   devServer: {
     disableHostCheck: true,       // 本地开发隆重需要改host, 此项是屏蔽Host检查
     host: "192.168.212.99",       // 设置host，默认localhost
@@ -22,6 +23,33 @@ module.exports = {
     // quiet: true            屏蔽控制台的启动信息
   },
   lintOnSave: false,          // 保存文件时不执行eslint代码检查
+=======
+    devServer: {
+        publicPath: '/',
+        disableHostCheck: true,
+        // host: '192.168.212.54',
+        port: 4200,
+        proxy: {
+            '/finance': {
+                target: 'https://mgt.oilchem.net',
+                changeOrigin: true
+            },
+            '/callcenter': {
+                target: 'https://mgt.oilchem.net',
+                changeOrigin: true
+            }
+        },
+        quiet: true
+    },
+    lintOnSave: false,
+    css: {
+        loaderOptions: {
+            less: {
+                javascriptEnabled: true     // iView修改主题的bug
+            }
+        }
+    },
+>>>>>>> Stashed changes
 
   // css相关配置
   css: {
